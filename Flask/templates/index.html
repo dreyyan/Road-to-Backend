@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Survey</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>STUDENT SURVEY</h1>
+    <div>
+        <!-- PHP -->
+        <!-- <form action="processForm.php" method="POST"> -->
+        <!-- FLASK -->
+        <form action="/process_form" method="POST">
+
+            <fieldset id="field-section">
+                <legend>I. Student Information</legend>
+                <!-- FULL NAME -->
+                <label for="name">Full Name: </label>
+                <input type="text" name="name_input" placeholder="Juan de la Cruz" required>
+
+                <!-- EMAIL ADDRESS -->
+                <label for="email">Email Address: </label>
+                <input type="email" name="email_input" placeholder="example@domain.com" required>
+
+                <!-- AGE -->
+                <label for="age">Age: </label>
+                <input type="number" name="age_input" min="10" max="100">
+
+                <!-- PASSWORD -->
+                <label for="">Password: </label>
+                <input type="password" name="password_input" placeholder="******">
+
+                <!-- CONFIRM PASSWORD -->
+                <label for="confirm-password">Confirm Password: </label>
+                <input type="password" name="confirm_password_input" placeholder="******">
+            </fieldset>
+
+            <fieldset id="field-section">
+                <legend>II. Academic Information</legend>
+                <!-- YEAR LEVEL -->
+                <label for="year-level">Year Level: </label>
+                <select id="year-level" name="year_level_input">
+                    <option value="1st Year">1st Year</option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                    <option value="4th Year">4th Year</option>
+                </select>
+
+                <!-- PREFERRED LEARNING MODALITY -->
+                <label for="preferred-learning-modality">Preferred Learning Modality: </label>
+                <select id="preferred-learning-modality" name="preferred_learning_modality_input">
+                    <option value="face-to-face">Face-to-face</option>
+                    <option value="online">Online</option>
+                    <option value="hybrid">Hybrid</option>
+                </select>
+            </fieldset>
+
+            <fieldset id="field-section">
+                <legend>Feedback</legend>
+                <!-- SATISFACTION -->
+                <label for="satisfaction">Satisfaction</label>
+                <select id="satisfaction" name="satisfaction_input">
+                    <option value="very-satisfied">Very Satisfied</option>
+                    <option value="satisfied">Satisfied</option>
+                    <option value="neutral">Neutral</option>
+                    <option value="dissatisfied">Dissatisfied</option>
+                    <option value="very-dissatisfied">Very Dissatisfied</option>
+                </select>
+               
+                <!-- ADDITIONAL COMMENTS -->
+                <label for="comments">Additional Comments</label>
+                <textarea id="comments" name="additional_comments_input" rows="4", cols="20" placeholder="Write your feedback here..."></textarea>
+
+                <!-- SUBMIT BUTTON -->
+                 <button type="submit" id="submit-button">Submit Form</button>
+            </fieldset>
+        </form> 
+    </div>
+</body>
+</html>
