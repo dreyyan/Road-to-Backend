@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+import mysql.connector
+from mysql.connector import Error
 
 app = Flask(__name__)
 
@@ -60,28 +62,50 @@ def validate_input(name: str, address: str, contact_number: str, email_address: 
 
     return errors
 
-
-# ROUTES: Form
 @app.route("/add_contact_form", methods=["POST"])
 def add_to_contacts():
-    # get form inputs
-    name = request.form.get("name_input")
-    address = request.form.get("address_input")
-    contact_number = request.form.get("contact_number_input")
-    email_address = request.form.get("email_address_input")
+    conn = None
+    try:
+        # connect to MySQL
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="123098239838",
+            database="contacts"
+        )
 
-    # validate user input
-    errors = validate_input(name, address, contact_number, email_address)
+        cursor = conn.cursor()
 
-    if errors:
-        # if there are errors, re-render the form with error messages
-        return render_template("add_contact.html", errors=errors,
-           name=name, address=address,
-           contact_number=contact_number, email_address=email_address)
-    
+        # create table if it doesn't exist
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS contacts (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            address VARCHAR(255),
+            contact_number VARCHAR(20),
+            email_address VARCHAR(255)
+        )
+        """)
+
+        # insert data
+        cursor.execute("""
+        INSERT INTO contacts (name, address, contact_number, email_address)
+        VALUES (%s, %s, %s, %s)
+        """, (name, address, contact_number, email_address))
+
+        conn.commit()
+
+    except Error as e:
+        # show error in browser instead of crashing
+        return f"MySQL Error: {e}"
+
+    finally:
+        if conn and conn.is_connected():
+            cursor.close()
+            conn.close()
+     
     # if no errors, you can save the contact or show a success page
     return f"Contact {name} added successfully!"
-
 
 if __name__ == "__main__":
     app.run(debug=True)
