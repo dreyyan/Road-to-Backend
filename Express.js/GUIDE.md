@@ -1,4 +1,13 @@
+# Project Setup
+
+## Initialize Project
+```bash
 npm init -y
-npm i --save-dev nodemon
-npm i express
-npm i ejs
+```
+
+## Install Dependencies
+npm install express
+npm install ejs
+
+## Install Dev Dependencies
+npm install --save-dev nodemon

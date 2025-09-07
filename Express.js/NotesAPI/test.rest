@@ -1,0 +1,13 @@
+### GET Notes
+GET http://localhost:3000/notes
+
+### POST Notes
+POST http://localhost:3000/notes
+Content-Type: application/json
+
+{
+    "text": "Learn Node.js"
+}
+
+### DELETE Note
+DELETE http://localhost:3000/notes/123456

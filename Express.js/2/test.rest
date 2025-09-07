@@ -1,0 +1,21 @@
+# Emulates a browser or a user
+
+### TEST GET / WEBSITE
+GET http://localhost:3000
+
+### TEST GET /dashboard WEBSITE
+GET http://localhost:3000/dashboard
+
+### TEST DATA ENDPOINT
+GET http://localhost:3000/api/data
+
+### DATA ENDPOINT FOR ADDING A USER
+POST http://localhost:3000/api/data
+Content-Type: application/json
+
+{
+    "name": "Sun Tzu"
+}
+
+### DELETE ENDPOINT
+DELETE http://localhost:3000/api/data
