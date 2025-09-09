@@ -1,9 +1,15 @@
 # FastAPI Guide
 
 ## Installation
+
 ### Install FastAPI
 ``` powershell
 pip install --user fastapi uvicorn
+```
+
+### Install Jinja2 (for HTML Templates)
+``` powershell
+pip install jinja2
 ```
 
 ### Start Server

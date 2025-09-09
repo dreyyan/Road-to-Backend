@@ -1,22 +1,24 @@
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse # to serve HTML pages
+from fastapi.templating import Jinja2Templates # for HTML templates
+from fastapi.staticfiles import StaticFiles # for JS functionalities
+from fastapi.requests import Request
+from fastapi.responses import JSONResponse, RedirectResponse
+from pydantic import BaseModel  # for User Model
 
-app = FastAPI()
+app = FastAPI() # Create FastAPI application
+templates = Jinja2Templates(directory="templates") # Specify HTML directory
 
-@app.get("/", response_class=HTMLResponse) # HTTP GET request
-def read_root():
-    return """
-    <html>
-        <head>
-            <title>My Website</title>
-        </head>
-        <body>
-            <h1>Welcome to my website!</h1>
-            <p>This is served by FastAPI.</p>
-        </body>
-    </html>
-    """
+# Mount static folder for JS/CSS
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/items/{item_id}") # Path parameter
-def read_item(item_id: int, q: str = None): # Query parameter
-    return {"item_id": item_id, "q": q}
+# Create "fake" database
+user_information = {}
+
+# Pydantic model for validation (used to validate data structures)
+class User(BaseModel):
+    name: str
+
+# Routing
+@app.get("/")
+def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
