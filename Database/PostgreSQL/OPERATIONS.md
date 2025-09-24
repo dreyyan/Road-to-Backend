@@ -1,13 +1,19 @@
-# PostgreSQL
+# PostgreSQL: Operations
 ## DATABASES
 ```postgresql
-\l                      -- list all databases
-CREATE DATABASE mydb;   -- make a new database
-\c mydb                 -- connect to mydb
+\l                                  -- list all databases
+CREATE DATABASE {DATABASE_NAME};    -- make a new database
+DROP DATABASE {DATABASE_NAME}       -- drop (delete) database
+\c mydb                             -- connect to mydb
 ```
 
 ## TABLES
 ```postgresql
+\dt                             -- show all tables in current database
+\dt                             -- show more details (owner, size, etc.)
+\dt public.*                    -- show tables in a specific schema
+\dg                             -- list all relations
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,      -- auto-incrementing ID
     name VARCHAR(100),          -- text up to 100 chars
