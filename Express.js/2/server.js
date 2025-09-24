@@ -53,7 +53,6 @@ app.post('/api/data', (req, res) => {
     res.sendStatus(201);
 });
 
-
 app.delete('/api/data', (req, res) => {
     data.pop();
     console.log("Deleted user.");

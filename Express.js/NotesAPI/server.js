@@ -14,9 +14,7 @@ let notes = [
   { id: Date.now(), text: "Learn Node.js, Build an API" }
 ];
 
-
 // ================================================================
-
 // Website Endpoints
 // [1] Main
 app.get('/', (req, res) => {
