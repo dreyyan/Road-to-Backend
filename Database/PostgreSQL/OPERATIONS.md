@@ -9,10 +9,7 @@ DROP DATABASE {DATABASE_NAME}       -- drop (delete) database
 
 ## TABLES
 ```postgresql
-\dt                             -- show all tables in current database
-\dt                             -- show more details (owner, size, etc.)
-\dt public.*                    -- show tables in a specific schema
-\dg                             -- list all relations
+SELECT * FROM {TABLE_NAME}      -- display table
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,      -- auto-incrementing ID
