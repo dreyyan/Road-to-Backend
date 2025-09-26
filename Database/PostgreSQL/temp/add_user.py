@@ -21,7 +21,7 @@ class User(Base):
     email = Column(String, unique=True, index=True)
 
 # Add a new user
-new_user = User(email="test@example.com")
+new_user = User(email="test1@example.com")
 session.add(new_user)
 session.commit()
 session.refresh(new_user)
