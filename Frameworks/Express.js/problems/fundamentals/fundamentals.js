@@ -49,12 +49,35 @@ app.use(express.json()) // Middleware
 
 // 5. Custom Middleware
 // ==========================================
+// const logger = (req, res, next) => {
+//     const time = new Date().toLocaleDateString();
+//     console.log(`[${time}] ${req.method} => ${req.path}`);
+//     next();
+// };
+// app.use(logger);
 
+// app.get('/', logger, (req, res) => {
+//     res.send("Hello World!");
+// });
+
+// app.get('/about', (req, res) => {
+//     res.send("About page");
+// });
 // ==========================================
 
 // 6. Error Handling
 // ==========================================
+// app.get('/error', (req, res, next) => {
+//     const error = new Error("an error occured");
+//     next(error);
+// });
 
+// const errorHandle = (err, req, res, next) => {
+//     console.error(err.message);
+//     res.status(500).json({
+//         "error": "something went wrong"
+//     });
+// }; app.use(errorHandle);
 // ==========================================
 
 app.listen(PORT, () => {
