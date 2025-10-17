@@ -1,13 +1,22 @@
 # Project Setup
+## 1. Install Dependencies
+```bash
+npm install express
+npm install nodemon --save-dev
+npm install dotenv
+```
 
-## Initialize Project
+## 2. Initialize npm:
 ```bash
 npm init -y
 ```
 
-## Install Dependencies
-npm install express
-npm install ejs
+## 3. Add script to `package.json`:
+```bash
+"dev": "nodemon server.js"
+```
 
-## Install Dev Dependencies
-npm install --save-dev nodemon
+## 4. Run express server:
+```bash
+npm run dev
+```

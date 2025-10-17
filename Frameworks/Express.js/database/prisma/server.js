@@ -84,7 +84,7 @@ app.put('/users/:id', async (req, res) => {
             where: { id: parseInt(id) },
             data: { name, email },
         });
-        res.status(200).json(successResponse("User update successfully"));
+        res.status(200).json(successResponse("User updated successfully", user));
     } catch (err) {
         res.status(400).json(errorResponse("Failed to update user"));
     }
@@ -95,10 +95,10 @@ app.delete('/users/:id', async (req, res) => {
     const id = req.params.id;
 
     try {
-        await prisma.user.delete({
+        const deletedUser = await prisma.user.delete({
             where: { id: parseInt(id) },
         });
-        res.status(200).json(successResponse("User delete successfully"));
+        res.status(200).json(successResponse("User deleted successfully", deletedUser));
     } catch (err) {
         res.status(400).json(errorResponse("Failed to delete user"));
     }
