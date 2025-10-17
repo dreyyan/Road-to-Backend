@@ -10,91 +10,91 @@ let products = [];
 // 1. Simple User List
 // Suggestions - Return consistent JSON structure, use helper function
 // ==========================================
-// [GET] Return all users
-app.get('/users', (req, res) => {
-    res.json(users);
-});
+// // [GET] Return all users
+// app.get('/users', (req, res) => {
+//     res.json(users);
+// });
 
-// [GET] Return a single user
-app.get('/users/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const user = users.find(u => u.id === id);
+// // [GET] Return a single user
+// app.get('/users/:id', (req, res) => {
+//     const id = parseInt(req.params.id);
+//     const user = users.find(u => u.id === id);
 
-    // ERROR: Non-existing user
-    if (!user) {
-        console.error("[ERROR]: User not found");
-        return res.status(404).json({
-            "message": `User with ID: ${id} not found`
-        });
-    }
-    console.info(`[SUCCESS] Retrieved info from user`);
-    res.json(user);
-});
+//     // ERROR: Non-existing user
+//     if (!user) {
+//         console.error("[ERROR]: User not found");
+//         return res.status(404).json({
+//             "message": `User with ID: ${id} not found`
+//         });
+//     }
+//     console.info(`[SUCCESS] Retrieved info from user`);
+//     res.json(user);
+// });
 
-// [POST] Add a user
-app.post('/users', (req, res) => {
-    const { name } = req.body;
+// // [POST] Add a user
+// app.post('/users', (req, res) => {
+//     const { name } = req.body;
 
-    // ERROR: Missing 'name' in body
-    if (!name) {
-        console.error("[ERROR]: Missing 'name' in body");
-        res.status(400).json({
-            "message": "Missing 'name' in body"
-        }); return;
-    }
+//     // ERROR: Missing 'name' in body
+//     if (!name) {
+//         console.error("[ERROR]: Missing 'name' in body");
+//         res.status(400).json({
+//             "message": "Missing 'name' in body"
+//         }); return;
+//     }
 
-    const newUser = { id: nextId++, name };
-    users.push(newUser); // Add user to the fake database
-    console.log(`[SUCCESS] User '${name}' added`); 
-    res.status(201).json({
-        "name": name
-    });
-})
+//     const newUser = { id: nextId++, name };
+//     users.push(newUser); // Add user to the fake database
+//     console.log(`[SUCCESS] User '${name}' added`); 
+//     res.status(201).json({
+//         "name": name
+//     });
+// })
 
-// [PUT] Update user's name
-app.put(['/users', '/users/:id'], (req, res) => {
-    const id = req.params.id;
-    const { name } = req.body;
+// // [PUT] Update user's name
+// app.put(['/users', '/users/:id'], (req, res) => {
+//     const id = req.params.id;
+//     const { name } = req.body;
 
-    // ERROR: Non-existing user
-    if (users[id] === undefined) {
-        console.error("[ERROR]: User not found");
-        res.status(404).json({
-            "message": `User with ID: ${id} not found`
-        }); return;
-    }
+//     // ERROR: Non-existing user
+//     if (users[id] === undefined) {
+//         console.error("[ERROR]: User not found");
+//         res.status(404).json({
+//             "message": `User with ID: ${id} not found`
+//         }); return;
+//     }
 
-    // If user exists, update its 'name' field
-    users[id] = { "name": name };
-    console.info(`[SUCCESS] User with ID: ${id} updated`);
-    res.json(users[id]);
-});
+//     // If user exists, update its 'name' field
+//     users[id] = { "name": name };
+//     console.info(`[SUCCESS] User with ID: ${id} updated`);
+//     res.json(users[id]);
+// });
 
-// [DELETE] Remove a user
-app.delete(['/users', '/users/:id'], (req, res) => {
-    const id = req.params.id;
+// // [DELETE] Remove a user
+// app.delete(['/users', '/users/:id'], (req, res) => {
+//     const id = req.params.id;
 
-    // If no ID provided, delete all users
-    if (!id) {
-        users = [];
-        console.info(`[SUCCESS] All users removed`)
-        res.json(users); // Return updated list of users
-        return;
-    }
+//     // If no ID provided, delete all users
+//     if (!id) {
+//         users = [];
+//         console.info(`[SUCCESS] All users removed`)
+//         res.json(users); // Return updated list of users
+//         return;
+//     }
 
-    // ERROR: Non-existing user
-    if (users[id] === undefined) {
-        console.error("[ERROR]: User not found");
-        res.status(404).json({
-            "message": `User with ID: ${id} not found`
-        }); return;
-    }
+//     // ERROR: Non-existing user
+//     if (users[id] === undefined) {
+//         console.error("[ERROR]: User not found");
+//         res.status(404).json({
+//             "message": `User with ID: ${id} not found`
+//         }); return;
+//     }
 
-    // If user exists, delete the user from the list
-    users.splice(id, 1); // Remove specified user
-    console.info(`[SUCCESS] User with ID: ${id} removed`)
-    res.json(users); // Return updated list of users
-});
+//     // If user exists, delete the user from the list
+//     users.splice(id, 1); // Remove specified user
+//     console.info(`[SUCCESS] User with ID: ${id} removed`)
+//     res.json(users); // Return updated list of users
+// });
 // ==========================================
 
 // 2. Products API

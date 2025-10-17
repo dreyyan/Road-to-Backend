@@ -2,48 +2,39 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-app.use(express.json()); // Parse incoming JSON request bodies
-
 users = []; // Fake database
 
-// [HELPER] Check if user exists in the database
-const userExists = (name) => {
-    return users.find(u => u.name === name);
-};
+const usersRouter = require('./routes/users')(users);
+app.use(express.json()); // Parse incoming JSON request bodies
 
-// [MESSAGE] Return success message
-const successResponse = (message, data=null) => ({
-    success: true,
-    message: `[SUCCESS] ${message}.`,
-    data
+// Middleware: Logs all requests
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} || [${req.method}] ${req.url}`);
+    next();
 });
 
-// [MESSAGE] Return success message
-const errorResponse = (message, data=null) => ({
-    success: false,
-    message: `[ERROR] ${message}.`,
-    data
-});
+// Middleware: Reject requests /w missing x-api-key
+app.use((req, res, next) => {
+    const apiKey = req.headers['x-api-key'];
 
-// [ERROR HANDLING]: Custom Global Middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-
-    const statusCode = err.status || 500;
-    const errorMessage = err.message || "Something went wrong";    
-
-    res.status(statusCode).json(errorResponse(errorMessage));
-});
-
-// [POST] Add user to list
-app.post('/users', (req, res) => {
-    const { name } = req.body;  
-
-    // Check if name exists
-    if (!userExists(name)) {
-        res.status(400).json(errorResponse("Bad Request"))
+    if (!apiKey) {
+    console.error("[ERROR] Missing x-api-key header");
+    return res.status(403).json({
+        success: false,
+        message: "[ERROR] Missing x-api-key header"
+    });
     }
+
+    next();
 });
 
-app.post
+// Example route
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: "Access granted! You passed the header check"
+  });
+});
+
+app.use('/users', usersRouter);
 app.listen(PORT);
